@@ -6,8 +6,8 @@ Just a sample application using the docs schema. We can build on this to add mor
 
 ## Pre-requisites
 
-1. The Hasura3 CLI
-2. A Hasura DDN account
+1. The [Hasura3 CLI](https://hasura.io/docs/3.0/cli/overview/)
+2. A [Hasura DDN](https://console.hasura.io) account
 
 ## Getting Started
 
