@@ -69,7 +69,7 @@ hasura3 build create --profile build-profile-staging.yaml -d "Initial build on s
 Head to the Console URL returned by the CLI, select the `staging` environment, and then run the following query:
 
 ```graphql
-query MyQuery {
+query PaymentQuery {
   users {
     id
     email
