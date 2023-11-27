@@ -9,4 +9,5 @@ spec:
   subgraphs:
     - name: default
       resources:
-        - 'subgraphs/default/**/*.hml'
+        - subgraphs/default/**/*.hml
+        - subgraphs/billing/**/*.hml

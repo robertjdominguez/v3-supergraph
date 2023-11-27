@@ -1,0 +1,161 @@
+kind: ScalarType
+version: v1
+definition:
+  name: billingTimestamptz
+  graphql:
+    typeName: billingTimestamptz
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: billingText
+  graphql:
+    typeName: billingText
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: billingUuid
+  graphql:
+    typeName: billingUuid
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: billing
+  dataConnectorScalarType: timestamptz
+  representation: billingTimestamptz
+  graphql:
+    comparisonExpressionTypeName: billingTimestamptzComparisonExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: billing
+  dataConnectorScalarType: text
+  representation: billingText
+  graphql:
+    comparisonExpressionTypeName: billingTextComparisonExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: billing
+  dataConnectorScalarType: uuid
+  representation: billingUuid
+  graphql:
+    comparisonExpressionTypeName: billingUuidComparisonExp
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: users1
+  graphql:
+    typeName: users1
+    inputTypeName: users1Input
+  fields:
+    - name: created_at
+      type: billingTimestamptz
+    - name: email
+      type: billingText!
+    - name: name
+      type: billingText!
+    - name: user_id
+      type: billingUuid!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: users1
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - created_at
+          - email
+          - name
+          - user_id
+
+---
+kind: Model
+version: v1
+definition:
+  name: billingUsers
+  objectType: users1
+  filterableFields:
+    - fieldName: created_at
+      operators:
+        enableAll: true
+    - fieldName: email
+      operators:
+        enableAll: true
+    - fieldName: name
+      operators:
+        enableAll: true
+    - fieldName: user_id
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: created_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: email
+      orderByDirections:
+        enableAll: true
+    - fieldName: name
+      orderByDirections:
+        enableAll: true
+    - fieldName: user_id
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: billingUsersByEmail
+        uniqueIdentifier:
+          - email
+      - queryRootField: billingUsersByUserId
+        uniqueIdentifier:
+          - user_id
+    selectMany:
+      queryRootField: billingUsers
+    filterExpressionType: billingUsersBoolExp
+    orderByExpressionType: billingUsersOrderBy
+  source:
+    collection: users
+    dataConnectorName: billing
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: billingUsers
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: invoices
+  source: users1
+  target:
+    model:
+      relationshipType: Array
+      name: invoices
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: user_id
+      target:
+        modelField:
+          - fieldName: user_id

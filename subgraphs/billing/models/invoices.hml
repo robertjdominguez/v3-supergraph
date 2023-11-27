@@ -1,0 +1,140 @@
+kind: ObjectType
+version: v1
+definition:
+  name: invoices
+  graphql:
+    typeName: invoices
+    inputTypeName: invoicesInput
+  fields:
+    - name: amount
+      type: numeric!
+    - name: due_date
+      type: billingTimestamptz
+    - name: invoice_id
+      type: billingUuid!
+    - name: issued_date
+      type: billingTimestamptz
+    - name: status
+      type: billingText!
+    - name: user_id
+      type: billingUuid
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: invoices
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - amount
+          - due_date
+          - invoice_id
+          - issued_date
+          - status
+          - user_id
+
+---
+kind: Model
+version: v1
+definition:
+  name: invoices
+  objectType: invoices
+  filterableFields:
+    - fieldName: amount
+      operators:
+        enableAll: true
+    - fieldName: due_date
+      operators:
+        enableAll: true
+    - fieldName: invoice_id
+      operators:
+        enableAll: true
+    - fieldName: issued_date
+      operators:
+        enableAll: true
+    - fieldName: status
+      operators:
+        enableAll: true
+    - fieldName: user_id
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: amount
+      orderByDirections:
+        enableAll: true
+    - fieldName: due_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: invoice_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: issued_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: status
+      orderByDirections:
+        enableAll: true
+    - fieldName: user_id
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: invoicesByInvoiceId
+        uniqueIdentifier:
+          - invoice_id
+    selectMany:
+      queryRootField: invoices
+    filterExpressionType: invoicesBoolExp
+    orderByExpressionType: invoicesOrderBy
+  source:
+    collection: invoices
+    dataConnectorName: billing
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: invoices
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: billingUser
+  source: invoices
+  target:
+    model:
+      relationshipType: Object
+      name: billingUsers
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: user_id
+      target:
+        modelField:
+          - fieldName: user_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payments
+  source: invoices
+  target:
+    model:
+      relationshipType: Array
+      name: payments
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: invoice_id
+      target:
+        modelField:
+          - fieldName: invoice_id

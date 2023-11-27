@@ -1,0 +1,122 @@
+kind: ScalarType
+version: v1
+definition:
+  name: numeric
+  graphql:
+    typeName: numeric
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: billing
+  dataConnectorScalarType: numeric
+  representation: numeric
+  graphql:
+    comparisonExpressionTypeName: numericComparisonExp
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: payments
+  graphql:
+    typeName: payments
+    inputTypeName: paymentsInput
+  fields:
+    - name: amount_paid
+      type: numeric!
+    - name: invoice_id
+      type: billingUuid
+    - name: payment_date
+      type: billingTimestamptz
+    - name: payment_id
+      type: billingUuid!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: payments
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - amount_paid
+          - invoice_id
+          - payment_date
+          - payment_id
+
+---
+kind: Model
+version: v1
+definition:
+  name: payments
+  objectType: payments
+  filterableFields:
+    - fieldName: amount_paid
+      operators:
+        enableAll: true
+    - fieldName: invoice_id
+      operators:
+        enableAll: true
+    - fieldName: payment_date
+      operators:
+        enableAll: true
+    - fieldName: payment_id
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: amount_paid
+      orderByDirections:
+        enableAll: true
+    - fieldName: invoice_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: payment_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: payment_id
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: paymentsByPaymentId
+        uniqueIdentifier:
+          - payment_id
+    selectMany:
+      queryRootField: payments
+    filterExpressionType: paymentsBoolExp
+    orderByExpressionType: paymentsOrderBy
+  source:
+    collection: payments
+    dataConnectorName: billing
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: payments
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: invoice
+  source: payments
+  target:
+    model:
+      relationshipType: Object
+      name: invoices
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: invoice_id
+      target:
+        modelField:
+          - fieldName: invoice_id

@@ -1,0 +1,311 @@
+kind: HasuraHubDataConnector
+version: v1
+definition:
+  name: billing
+  connectorId: hasura/postgres
+  connectorConfiguration:
+    - region: gcp-us-east4
+      mode: ReadWrite
+      configuration:
+        version: 1
+        connectionUri:
+          uri:
+            value: postgresql://read_only:kd4555jkfjfkdj39f8f8d9d@35.236.11.122:5432/v3-docs-sample-app-billing
+        metadata:
+          tables:
+            invoices:
+              schemaName: public
+              tableName: invoices
+              columns:
+                amount:
+                  name: amount
+                  type: numeric
+                  nullable: nonNullable
+                  description: null
+                due_date:
+                  name: due_date
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                invoice_id:
+                  name: invoice_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                issued_date:
+                  name: issued_date
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                status:
+                  name: status
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                user_id:
+                  name: user_id
+                  type: uuid
+                  nullable: nullable
+                  description: null
+              uniquenessConstraints:
+                invoices_pkey:
+                  - invoice_id
+              foreignRelations:
+                invoices_user_id_fkey:
+                  foreignSchema: public
+                  foreignTable: users
+                  columnMapping:
+                    user_id: user_id
+              description: null
+            payments:
+              schemaName: public
+              tableName: payments
+              columns:
+                amount_paid:
+                  name: amount_paid
+                  type: numeric
+                  nullable: nonNullable
+                  description: null
+                invoice_id:
+                  name: invoice_id
+                  type: uuid
+                  nullable: nullable
+                  description: null
+                payment_date:
+                  name: payment_date
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                payment_id:
+                  name: payment_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                payments_pkey:
+                  - payment_id
+              foreignRelations:
+                payments_invoice_id_fkey:
+                  foreignSchema: public
+                  foreignTable: invoices
+                  columnMapping:
+                    invoice_id: invoice_id
+              description: null
+            users:
+              schemaName: public
+              tableName: users
+              columns:
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                email:
+                  name: email
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                name:
+                  name: name
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                user_id:
+                  name: user_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                users_email_key:
+                  - email
+                users_pkey:
+                  - user_id
+              foreignRelations: {}
+              description: null
+          nativeQueries: {}
+          aggregateFunctions:
+            numeric:
+              avg:
+                returnType: numeric
+              max:
+                returnType: numeric
+              min:
+                returnType: numeric
+              stddev:
+                returnType: numeric
+              stddev_pop:
+                returnType: numeric
+              stddev_samp:
+                returnType: numeric
+              sum:
+                returnType: numeric
+              var_pop:
+                returnType: numeric
+              var_samp:
+                returnType: numeric
+              variance:
+                returnType: numeric
+            text:
+              max:
+                returnType: text
+              min:
+                returnType: text
+            timestamptz:
+              max:
+                returnType: timestamptz
+              min:
+                returnType: timestamptz
+          comparisonOperators:
+            numeric:
+              _eq:
+                operatorName: =
+                argumentType: numeric
+              _gt:
+                operatorName: ">"
+                argumentType: numeric
+              _gte:
+                operatorName: ">="
+                argumentType: numeric
+              _lt:
+                operatorName: <
+                argumentType: numeric
+              _lte:
+                operatorName: <=
+                argumentType: numeric
+              _neq:
+                operatorName: <>
+                argumentType: numeric
+            text:
+              _eq:
+                operatorName: =
+                argumentType: text
+              _gt:
+                operatorName: ">"
+                argumentType: text
+              _gte:
+                operatorName: ">="
+                argumentType: text
+              _ilike:
+                operatorName: ~~*
+                argumentType: text
+              _iregex:
+                operatorName: ~*
+                argumentType: text
+              _like:
+                operatorName: ~~
+                argumentType: text
+              _lt:
+                operatorName: <
+                argumentType: text
+              _lte:
+                operatorName: <=
+                argumentType: text
+              _neq:
+                operatorName: <>
+                argumentType: text
+              _nilike:
+                operatorName: "!~~*"
+                argumentType: text
+              _niregex:
+                operatorName: "!~*"
+                argumentType: text
+              _nlike:
+                operatorName: "!~~"
+                argumentType: text
+              _nregex:
+                operatorName: "!~"
+                argumentType: text
+              _regex:
+                operatorName: "~"
+                argumentType: text
+            timestamptz:
+              _eq:
+                operatorName: =
+                argumentType: timestamptz
+              _gt:
+                operatorName: ">"
+                argumentType: timestamptz
+              _gte:
+                operatorName: ">="
+                argumentType: timestamptz
+              _lt:
+                operatorName: <
+                argumentType: timestamptz
+              _lte:
+                operatorName: <=
+                argumentType: timestamptz
+              _neq:
+                operatorName: <>
+                argumentType: timestamptz
+            uuid:
+              _eq:
+                operatorName: =
+                argumentType: uuid
+              _gt:
+                operatorName: ">"
+                argumentType: uuid
+              _gte:
+                operatorName: ">="
+                argumentType: uuid
+              _lt:
+                operatorName: <
+                argumentType: uuid
+              _lte:
+                operatorName: <=
+                argumentType: uuid
+              _neq:
+                operatorName: <>
+                argumentType: uuid
+        configureOptions:
+          excludedSchemas:
+            - information_schema
+            - pg_catalog
+            - tiger
+            - crdb_internal
+            - columnar
+            - columnar_internal
+          unqualifiedSchemas:
+            - public
+          comparisonOperatorMapping:
+            - operatorName: =
+              exposedName: _eq
+            - operatorName: <=
+              exposedName: _lte
+            - operatorName: ">"
+              exposedName: _gt
+            - operatorName: ">="
+              exposedName: _gte
+            - operatorName: <
+              exposedName: _lt
+            - operatorName: "!="
+              exposedName: _neq
+            - operatorName: LIKE
+              exposedName: _like
+            - operatorName: NOT LIKE
+              exposedName: _nlike
+            - operatorName: ILIKE
+              exposedName: _ilike
+            - operatorName: NOT ILIKE
+              exposedName: _nilike
+            - operatorName: SIMILAR TO
+              exposedName: _similar
+            - operatorName: NOT SIMILAR TO
+              exposedName: _nsimilar
+            - operatorName: <>
+              exposedName: _neq
+            - operatorName: ~~
+              exposedName: _like
+            - operatorName: "!~~"
+              exposedName: _nlike
+            - operatorName: ~~*
+              exposedName: _ilike
+            - operatorName: "!~~*"
+              exposedName: _nilike
+            - operatorName: "~"
+              exposedName: _regex
+            - operatorName: "!~"
+              exposedName: _nregex
+            - operatorName: ~*
+              exposedName: _iregex
+            - operatorName: "!~*"
+              exposedName: _niregex

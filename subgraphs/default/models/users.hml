@@ -278,3 +278,23 @@ definition:
       target:
         modelField:
           - fieldName: user_id
+  
+---
+kind: Relationship
+version: v1
+definition:
+  name: billingUsers
+  source: users
+  target:
+    model:
+      name: billingUsers
+      relationshipType: Object
+      subgraph: billing
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: email
+      target:
+        modelField:
+          - fieldName: email
+      
