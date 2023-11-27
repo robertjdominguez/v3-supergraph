@@ -4,6 +4,9 @@
 
 Just a sample application using the docs schema. We can build on this to add more features.
 
+![image](https://github.com/robertjdominguez/v3-supergraph/assets/24390149/74f580f1-45c5-4cdd-9cbe-6768e6723a4b)
+
+
 ## Pre-requisites
 
 1. The [Hasura3 CLI](https://hasura.io/docs/3.0/cli/overview/)
