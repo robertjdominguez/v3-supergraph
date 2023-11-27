@@ -1,0 +1,140 @@
+kind: ObjectType
+version: v1
+definition:
+  name: carts
+  graphql:
+    typeName: carts
+    inputTypeName: cartsInput
+  fields:
+    - name: created_at
+      type: timestamptz
+    - name: id
+      type: uuid!
+    - name: is_complete
+      type: bool!
+    - name: is_reminder_sent
+      type: bool!
+    - name: updated_at
+      type: timestamptz
+    - name: user_id
+      type: uuid!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: carts
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - created_at
+          - id
+          - is_complete
+          - is_reminder_sent
+          - updated_at
+          - user_id
+
+---
+kind: Model
+version: v1
+definition:
+  name: carts
+  objectType: carts
+  filterableFields:
+    - fieldName: created_at
+      operators:
+        enableAll: true
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: is_complete
+      operators:
+        enableAll: true
+    - fieldName: is_reminder_sent
+      operators:
+        enableAll: true
+    - fieldName: updated_at
+      operators:
+        enableAll: true
+    - fieldName: user_id
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: created_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: is_complete
+      orderByDirections:
+        enableAll: true
+    - fieldName: is_reminder_sent
+      orderByDirections:
+        enableAll: true
+    - fieldName: updated_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: user_id
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: cartsById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: carts
+    filterExpressionType: cartsBoolExp
+    orderByExpressionType: cartsOrderBy
+  source:
+    collection: carts
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: carts
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: cart_items
+  source: carts
+  target:
+    model:
+      relationshipType: Array
+      name: cart_items
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: cart_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: user
+  source: carts
+  target:
+    model:
+      relationshipType: Object
+      name: users
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: user_id
+      target:
+        modelField:
+          - fieldName: id

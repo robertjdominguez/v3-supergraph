@@ -1,0 +1,86 @@
+kind: ObjectType
+version: v1
+definition:
+  name: categories
+  graphql:
+    typeName: categories
+    inputTypeName: categoriesInput
+  fields:
+    - name: id
+      type: uuid!
+    - name: name
+      type: text!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: categories
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - name
+
+---
+kind: Model
+version: v1
+definition:
+  name: categories
+  objectType: categories
+  filterableFields:
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: name
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: name
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: categoriesById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: categories
+    filterExpressionType: categoriesBoolExp
+    orderByExpressionType: categoriesOrderBy
+  source:
+    collection: categories
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: categories
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: products
+  source: categories
+  target:
+    model:
+      relationshipType: Array
+      name: products
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: category_id

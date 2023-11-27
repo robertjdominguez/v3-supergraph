@@ -1,0 +1,86 @@
+kind: ObjectType
+version: v1
+definition:
+  name: manufacturers
+  graphql:
+    typeName: manufacturers
+    inputTypeName: manufacturersInput
+  fields:
+    - name: id
+      type: uuid!
+    - name: name
+      type: text!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: manufacturers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - name
+
+---
+kind: Model
+version: v1
+definition:
+  name: manufacturers
+  objectType: manufacturers
+  filterableFields:
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: name
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: name
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: manufacturersById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: manufacturers
+    filterExpressionType: manufacturersBoolExp
+    orderByExpressionType: manufacturersOrderBy
+  source:
+    collection: manufacturers
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: manufacturers
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: products
+  source: manufacturers
+  target:
+    model:
+      relationshipType: Array
+      name: products
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: manufacturer_id

@@ -1,0 +1,113 @@
+kind: ObjectType
+version: v1
+definition:
+  name: notifications
+  graphql:
+    typeName: notifications
+    inputTypeName: notificationsInput
+  fields:
+    - name: created_at
+      type: timestamptz!
+    - name: id
+      type: uuid!
+    - name: message
+      type: text!
+    - name: updated_at
+      type: timestamptz!
+    - name: user_id
+      type: uuid!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: notifications
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - created_at
+          - id
+          - message
+          - updated_at
+          - user_id
+
+---
+kind: Model
+version: v1
+definition:
+  name: notifications
+  objectType: notifications
+  filterableFields:
+    - fieldName: created_at
+      operators:
+        enableAll: true
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: message
+      operators:
+        enableAll: true
+    - fieldName: updated_at
+      operators:
+        enableAll: true
+    - fieldName: user_id
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: created_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: message
+      orderByDirections:
+        enableAll: true
+    - fieldName: updated_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: user_id
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: notificationsById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: notifications
+    filterExpressionType: notificationsBoolExp
+    orderByExpressionType: notificationsOrderBy
+  source:
+    collection: notifications
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: notifications
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: user
+  source: notifications
+  target:
+    model:
+      relationshipType: Object
+      name: users
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: user_id
+      target:
+        modelField:
+          - fieldName: id

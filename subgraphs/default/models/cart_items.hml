@@ -1,0 +1,158 @@
+kind: ScalarType
+version: v1
+definition:
+  name: int4
+  graphql:
+    typeName: int4
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: app
+  dataConnectorScalarType: int4
+  representation: int4
+  graphql:
+    comparisonExpressionTypeName: int4ComparisonExp
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: cart_items
+  graphql:
+    typeName: cartItems
+    inputTypeName: cartItemsInput
+  fields:
+    - name: cart_id
+      type: uuid!
+    - name: created_at
+      type: timestamptz
+    - name: id
+      type: uuid!
+    - name: product_id
+      type: uuid!
+    - name: quantity
+      type: int4!
+    - name: updated_at
+      type: timestamptz
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: cart_items
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - cart_id
+          - created_at
+          - id
+          - product_id
+          - quantity
+          - updated_at
+
+---
+kind: Model
+version: v1
+definition:
+  name: cart_items
+  objectType: cart_items
+  filterableFields:
+    - fieldName: cart_id
+      operators:
+        enableAll: true
+    - fieldName: created_at
+      operators:
+        enableAll: true
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: product_id
+      operators:
+        enableAll: true
+    - fieldName: quantity
+      operators:
+        enableAll: true
+    - fieldName: updated_at
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: cart_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: created_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: product_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: quantity
+      orderByDirections:
+        enableAll: true
+    - fieldName: updated_at
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: cartItemsById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: cartItems
+    filterExpressionType: cartItemsBoolExp
+    orderByExpressionType: cartItemsOrderBy
+  source:
+    collection: cart_items
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: cart_items
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: cart
+  source: cart_items
+  target:
+    model:
+      relationshipType: Object
+      name: carts
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: cart_id
+      target:
+        modelField:
+          - fieldName: id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: product
+  source: cart_items
+  target:
+    model:
+      relationshipType: Object
+      name: products
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: product_id
+      target:
+        modelField:
+          - fieldName: id

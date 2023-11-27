@@ -1,0 +1,280 @@
+kind: ScalarType
+version: v1
+definition:
+  name: timestamptz
+  graphql:
+    typeName: timestamptz
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: text
+  graphql:
+    typeName: text
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: uuid
+  graphql:
+    typeName: uuid
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: bool
+  graphql:
+    typeName: bool
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: app
+  dataConnectorScalarType: timestamptz
+  representation: timestamptz
+  graphql:
+    comparisonExpressionTypeName: timestamptzComparisonExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: app
+  dataConnectorScalarType: text
+  representation: text
+  graphql:
+    comparisonExpressionTypeName: textComparisonExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: app
+  dataConnectorScalarType: uuid
+  representation: uuid
+  graphql:
+    comparisonExpressionTypeName: uuidComparisonExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: app
+  dataConnectorScalarType: bool
+  representation: bool
+  graphql:
+    comparisonExpressionTypeName: boolComparisonExp
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: users
+  graphql:
+    typeName: users
+    inputTypeName: usersInput
+  fields:
+    - name: created_at
+      type: timestamptz!
+    - name: email
+      type: text!
+    - name: id
+      type: uuid!
+    - name: is_email_verified
+      type: bool
+    - name: last_seen
+      type: timestamptz
+    - name: name
+      type: text!
+    - name: password
+      type: text
+    - name: updated_at
+      type: timestamptz!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: users
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - created_at
+          - email
+          - id
+          - is_email_verified
+          - last_seen
+          - name
+          - password
+          - updated_at
+    - role: user
+      output:
+        allowedFields:
+          - email
+          - id
+          - name
+
+---
+kind: Model
+version: v1
+definition:
+  name: users
+  objectType: users
+  filterableFields:
+    - fieldName: created_at
+      operators:
+        enableAll: true
+    - fieldName: email
+      operators:
+        enableAll: true
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: is_email_verified
+      operators:
+        enableAll: true
+    - fieldName: last_seen
+      operators:
+        enableAll: true
+    - fieldName: name
+      operators:
+        enableAll: true
+    - fieldName: password
+      operators:
+        enableAll: true
+    - fieldName: updated_at
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: created_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: email
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: is_email_verified
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_seen
+      orderByDirections:
+        enableAll: true
+    - fieldName: name
+      orderByDirections:
+        enableAll: true
+    - fieldName: password
+      orderByDirections:
+        enableAll: true
+    - fieldName: updated_at
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: usersById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: users
+    filterExpressionType: usersBoolExp
+    orderByExpressionType: usersOrderBy
+  source:
+    collection: users
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: users
+  permissions:
+    - role: admin
+      select:
+        filter: null
+    - role: user
+      select:
+        filter:
+          fieldComparison:
+            field: id
+            operator: _eq
+            value:
+              sessionVariable: x-hasura-user-id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: carts
+  source: users
+  target:
+    model:
+      relationshipType: Array
+      name: carts
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: user_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: coupons
+  source: users
+  target:
+    model:
+      relationshipType: Array
+      name: coupons
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: user_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: notifications
+  source: users
+  target:
+    model:
+      relationshipType: Array
+      name: notifications
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: user_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: orders
+  source: users
+  target:
+    model:
+      relationshipType: Array
+      name: orders
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: user_id

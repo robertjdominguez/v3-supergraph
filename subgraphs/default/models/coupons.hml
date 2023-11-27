@@ -1,0 +1,140 @@
+kind: ObjectType
+version: v1
+definition:
+  name: coupons
+  graphql:
+    typeName: coupons
+    inputTypeName: couponsInput
+  fields:
+    - name: amount
+      type: int4
+    - name: code
+      type: text!
+    - name: created_at
+      type: timestamptz!
+    - name: expiration_date
+      type: timestamptz!
+    - name: id
+      type: uuid!
+    - name: percent_or_value
+      type: text
+    - name: updated_at
+      type: timestamptz!
+    - name: user_id
+      type: uuid!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: coupons
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - amount
+          - code
+          - created_at
+          - expiration_date
+          - id
+          - percent_or_value
+          - updated_at
+          - user_id
+
+---
+kind: Model
+version: v1
+definition:
+  name: coupons
+  objectType: coupons
+  filterableFields:
+    - fieldName: amount
+      operators:
+        enableAll: true
+    - fieldName: code
+      operators:
+        enableAll: true
+    - fieldName: created_at
+      operators:
+        enableAll: true
+    - fieldName: expiration_date
+      operators:
+        enableAll: true
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: percent_or_value
+      operators:
+        enableAll: true
+    - fieldName: updated_at
+      operators:
+        enableAll: true
+    - fieldName: user_id
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: amount
+      orderByDirections:
+        enableAll: true
+    - fieldName: code
+      orderByDirections:
+        enableAll: true
+    - fieldName: created_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: expiration_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: percent_or_value
+      orderByDirections:
+        enableAll: true
+    - fieldName: updated_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: user_id
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: couponsById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: coupons
+    filterExpressionType: couponsBoolExp
+    orderByExpressionType: couponsOrderBy
+  source:
+    collection: coupons
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: coupons
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: user
+  source: coupons
+  target:
+    model:
+      relationshipType: Object
+      name: users
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: user_id
+      target:
+        modelField:
+          - fieldName: id

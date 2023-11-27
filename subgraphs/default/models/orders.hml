@@ -1,0 +1,158 @@
+kind: ObjectType
+version: v1
+definition:
+  name: orders
+  graphql:
+    typeName: orders
+    inputTypeName: ordersInput
+  fields:
+    - name: created_at
+      type: timestamptz!
+    - name: delivery_date
+      type: timestamptz
+    - name: id
+      type: uuid!
+    - name: is_reviewed
+      type: bool!
+    - name: product_id
+      type: uuid!
+    - name: status
+      type: text!
+    - name: updated_at
+      type: timestamptz!
+    - name: user_id
+      type: uuid!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: orders
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - created_at
+          - delivery_date
+          - id
+          - is_reviewed
+          - product_id
+          - status
+          - updated_at
+          - user_id
+
+---
+kind: Model
+version: v1
+definition:
+  name: orders
+  objectType: orders
+  filterableFields:
+    - fieldName: created_at
+      operators:
+        enableAll: true
+    - fieldName: delivery_date
+      operators:
+        enableAll: true
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: is_reviewed
+      operators:
+        enableAll: true
+    - fieldName: product_id
+      operators:
+        enableAll: true
+    - fieldName: status
+      operators:
+        enableAll: true
+    - fieldName: updated_at
+      operators:
+        enableAll: true
+    - fieldName: user_id
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: created_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: delivery_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: is_reviewed
+      orderByDirections:
+        enableAll: true
+    - fieldName: product_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: status
+      orderByDirections:
+        enableAll: true
+    - fieldName: updated_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: user_id
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: ordersById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: orders
+    filterExpressionType: ordersBoolExp
+    orderByExpressionType: ordersOrderBy
+  source:
+    collection: orders
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: orders
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: user
+  source: orders
+  target:
+    model:
+      relationshipType: Object
+      name: users
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: user_id
+      target:
+        modelField:
+          - fieldName: id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: product
+  source: orders
+  target:
+    model:
+      relationshipType: Object
+      name: products
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: product_id
+      target:
+        modelField:
+          - fieldName: id

@@ -1,0 +1,678 @@
+kind: HasuraHubDataConnector
+version: v1
+definition:
+  name: app
+  connectorId: hasura/postgres
+  connectorConfiguration:
+    - region: gcp-us-east4
+      mode: ReadWrite
+      configuration:
+        version: 1
+        connectionUri:
+          uri:
+            value: postgresql://read_only:kd4555jkfjfkdj39f8f8d9d@35.236.11.122:5432/v3-docs-sample-app
+        metadata:
+          tables:
+            cart_items:
+              schemaName: public
+              tableName: cart_items
+              columns:
+                cart_id:
+                  name: cart_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                product_id:
+                  name: product_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                quantity:
+                  name: quantity
+                  type: int4
+                  nullable: nonNullable
+                  description: null
+                updated_at:
+                  name: updated_at
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+              uniquenessConstraints:
+                cart_items_pkey:
+                  - id
+              foreignRelations:
+                cart_items_cart_id_foreign:
+                  foreignSchema: public
+                  foreignTable: carts
+                  columnMapping:
+                    cart_id: id
+                cart_items_product_id_foreign:
+                  foreignSchema: public
+                  foreignTable: products
+                  columnMapping:
+                    product_id: id
+              description: null
+            carts:
+              schemaName: public
+              tableName: carts
+              columns:
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                is_complete:
+                  name: is_complete
+                  type: bool
+                  nullable: nonNullable
+                  description: null
+                is_reminder_sent:
+                  name: is_reminder_sent
+                  type: bool
+                  nullable: nonNullable
+                  description: null
+                updated_at:
+                  name: updated_at
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                user_id:
+                  name: user_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                carts_pkey:
+                  - id
+              foreignRelations:
+                carts_user_id_foreign:
+                  foreignSchema: public
+                  foreignTable: users
+                  columnMapping:
+                    user_id: id
+              description: null
+            categories:
+              schemaName: public
+              tableName: categories
+              columns:
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                name:
+                  name: name
+                  type: text
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                categories_pkey:
+                  - id
+              foreignRelations: {}
+              description: null
+            coupons:
+              schemaName: public
+              tableName: coupons
+              columns:
+                amount:
+                  name: amount
+                  type: int4
+                  nullable: nullable
+                  description: null
+                code:
+                  name: code
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                expiration_date:
+                  name: expiration_date
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                percent_or_value:
+                  name: percent_or_value
+                  type: text
+                  nullable: nullable
+                  description: null
+                updated_at:
+                  name: updated_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                user_id:
+                  name: user_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                coupons_pkey:
+                  - id
+              foreignRelations:
+                coupons_user_id_fkey:
+                  foreignSchema: public
+                  foreignTable: users
+                  columnMapping:
+                    user_id: id
+              description: null
+            manufacturers:
+              schemaName: public
+              tableName: manufacturers
+              columns:
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                name:
+                  name: name
+                  type: text
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                manufacturers_pkey:
+                  - id
+              foreignRelations: {}
+              description: null
+            notifications:
+              schemaName: public
+              tableName: notifications
+              columns:
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                message:
+                  name: message
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                updated_at:
+                  name: updated_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                user_id:
+                  name: user_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                notifications_pkey:
+                  - id
+              foreignRelations:
+                notifications_user_id_fkey:
+                  foreignSchema: public
+                  foreignTable: users
+                  columnMapping:
+                    user_id: id
+              description: null
+            orders:
+              schemaName: public
+              tableName: orders
+              columns:
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                delivery_date:
+                  name: delivery_date
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                is_reviewed:
+                  name: is_reviewed
+                  type: bool
+                  nullable: nonNullable
+                  description: null
+                product_id:
+                  name: product_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                status:
+                  name: status
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                updated_at:
+                  name: updated_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                user_id:
+                  name: user_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                orders_pkey:
+                  - id
+              foreignRelations:
+                orders_customer_id_fkey:
+                  foreignSchema: public
+                  foreignTable: users
+                  columnMapping:
+                    user_id: id
+                orders_product_id_fkey:
+                  foreignSchema: public
+                  foreignTable: products
+                  columnMapping:
+                    product_id: id
+              description: null
+            products:
+              schemaName: public
+              tableName: products
+              columns:
+                category_id:
+                  name: category_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                country_of_origin:
+                  name: country_of_origin
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                description:
+                  name: description
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                image:
+                  name: image
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                manufacturer_id:
+                  name: manufacturer_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                name:
+                  name: name
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                price:
+                  name: price
+                  type: int4
+                  nullable: nonNullable
+                  description: null
+                updated_at:
+                  name: updated_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                products_pkey:
+                  - id
+              foreignRelations:
+                products_category_foreign:
+                  foreignSchema: public
+                  foreignTable: categories
+                  columnMapping:
+                    category_id: id
+                products_manufacturer_foreign:
+                  foreignSchema: public
+                  foreignTable: manufacturers
+                  columnMapping:
+                    manufacturer_id: id
+              description: null
+            reviews:
+              schemaName: public
+              tableName: reviews
+              columns:
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                is_visible:
+                  name: is_visible
+                  type: bool
+                  nullable: nonNullable
+                  description: null
+                product_id:
+                  name: product_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                rating:
+                  name: rating
+                  type: int4
+                  nullable: nonNullable
+                  description: null
+                text:
+                  name: text
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                updated_at:
+                  name: updated_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                user_id:
+                  name: user_id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                reviews_pkey:
+                  - id
+              foreignRelations:
+                reviews_product_id_foreign:
+                  foreignSchema: public
+                  foreignTable: products
+                  columnMapping:
+                    product_id: id
+                reviews_user_id_foreign:
+                  foreignSchema: public
+                  foreignTable: users
+                  columnMapping:
+                    user_id: id
+              description: null
+            users:
+              schemaName: public
+              tableName: users
+              columns:
+                created_at:
+                  name: created_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+                email:
+                  name: email
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                id:
+                  name: id
+                  type: uuid
+                  nullable: nonNullable
+                  description: null
+                is_email_verified:
+                  name: is_email_verified
+                  type: bool
+                  nullable: nullable
+                  description: null
+                last_seen:
+                  name: last_seen
+                  type: timestamptz
+                  nullable: nullable
+                  description: null
+                name:
+                  name: name
+                  type: text
+                  nullable: nonNullable
+                  description: null
+                password:
+                  name: password
+                  type: text
+                  nullable: nullable
+                  description: null
+                updated_at:
+                  name: updated_at
+                  type: timestamptz
+                  nullable: nonNullable
+                  description: null
+              uniquenessConstraints:
+                users_pkey:
+                  - id
+              foreignRelations: {}
+              description: null
+          nativeQueries: {}
+          aggregateFunctions:
+            bool:
+              bool_and:
+                returnType: bool
+              bool_or:
+                returnType: bool
+              every:
+                returnType: bool
+            int4:
+              bit_and:
+                returnType: int4
+              bit_or:
+                returnType: int4
+              bit_xor:
+                returnType: int4
+              max:
+                returnType: int4
+              min:
+                returnType: int4
+            text:
+              max:
+                returnType: text
+              min:
+                returnType: text
+            timestamptz:
+              max:
+                returnType: timestamptz
+              min:
+                returnType: timestamptz
+          comparisonOperators:
+            bool:
+              _eq:
+                operatorName: =
+                argumentType: bool
+              _gt:
+                operatorName: ">"
+                argumentType: bool
+              _gte:
+                operatorName: ">="
+                argumentType: bool
+              _lt:
+                operatorName: <
+                argumentType: bool
+              _lte:
+                operatorName: <=
+                argumentType: bool
+              _neq:
+                operatorName: <>
+                argumentType: bool
+            int4:
+              _eq:
+                operatorName: =
+                argumentType: int4
+              _gt:
+                operatorName: ">"
+                argumentType: int4
+              _gte:
+                operatorName: ">="
+                argumentType: int4
+              _lt:
+                operatorName: <
+                argumentType: int4
+              _lte:
+                operatorName: <=
+                argumentType: int4
+              _neq:
+                operatorName: <>
+                argumentType: int4
+            text:
+              _eq:
+                operatorName: =
+                argumentType: text
+              _gt:
+                operatorName: ">"
+                argumentType: text
+              _gte:
+                operatorName: ">="
+                argumentType: text
+              _ilike:
+                operatorName: ~~*
+                argumentType: text
+              _iregex:
+                operatorName: ~*
+                argumentType: text
+              _like:
+                operatorName: ~~
+                argumentType: text
+              _lt:
+                operatorName: <
+                argumentType: text
+              _lte:
+                operatorName: <=
+                argumentType: text
+              _neq:
+                operatorName: <>
+                argumentType: text
+              _nilike:
+                operatorName: "!~~*"
+                argumentType: text
+              _niregex:
+                operatorName: "!~*"
+                argumentType: text
+              _nlike:
+                operatorName: "!~~"
+                argumentType: text
+              _nregex:
+                operatorName: "!~"
+                argumentType: text
+              _regex:
+                operatorName: "~"
+                argumentType: text
+            timestamptz:
+              _eq:
+                operatorName: =
+                argumentType: timestamptz
+              _gt:
+                operatorName: ">"
+                argumentType: timestamptz
+              _gte:
+                operatorName: ">="
+                argumentType: timestamptz
+              _lt:
+                operatorName: <
+                argumentType: timestamptz
+              _lte:
+                operatorName: <=
+                argumentType: timestamptz
+              _neq:
+                operatorName: <>
+                argumentType: timestamptz
+            uuid:
+              _eq:
+                operatorName: =
+                argumentType: uuid
+              _gt:
+                operatorName: ">"
+                argumentType: uuid
+              _gte:
+                operatorName: ">="
+                argumentType: uuid
+              _lt:
+                operatorName: <
+                argumentType: uuid
+              _lte:
+                operatorName: <=
+                argumentType: uuid
+              _neq:
+                operatorName: <>
+                argumentType: uuid
+        configureOptions:
+          excludedSchemas:
+            - information_schema
+            - pg_catalog
+            - tiger
+            - crdb_internal
+            - columnar
+            - columnar_internal
+          unqualifiedSchemas:
+            - public
+          comparisonOperatorMapping:
+            - operatorName: =
+              exposedName: _eq
+            - operatorName: <=
+              exposedName: _lte
+            - operatorName: ">"
+              exposedName: _gt
+            - operatorName: ">="
+              exposedName: _gte
+            - operatorName: <
+              exposedName: _lt
+            - operatorName: "!="
+              exposedName: _neq
+            - operatorName: LIKE
+              exposedName: _like
+            - operatorName: NOT LIKE
+              exposedName: _nlike
+            - operatorName: ILIKE
+              exposedName: _ilike
+            - operatorName: NOT ILIKE
+              exposedName: _nilike
+            - operatorName: SIMILAR TO
+              exposedName: _similar
+            - operatorName: NOT SIMILAR TO
+              exposedName: _nsimilar
+            - operatorName: <>
+              exposedName: _neq
+            - operatorName: ~~
+              exposedName: _like
+            - operatorName: "!~~"
+              exposedName: _nlike
+            - operatorName: ~~*
+              exposedName: _ilike
+            - operatorName: "!~~*"
+              exposedName: _nilike
+            - operatorName: "~"
+              exposedName: _regex
+            - operatorName: "!~"
+              exposedName: _nregex
+            - operatorName: ~*
+              exposedName: _iregex
+            - operatorName: "!~*"
+              exposedName: _niregex

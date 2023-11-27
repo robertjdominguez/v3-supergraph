@@ -1,0 +1,230 @@
+kind: ObjectType
+version: v1
+definition:
+  name: products
+  graphql:
+    typeName: products
+    inputTypeName: productsInput
+  fields:
+    - name: category_id
+      type: uuid!
+    - name: country_of_origin
+      type: text!
+    - name: created_at
+      type: timestamptz!
+    - name: description
+      type: text!
+    - name: id
+      type: uuid!
+    - name: image
+      type: text!
+    - name: manufacturer_id
+      type: uuid!
+    - name: name
+      type: text!
+    - name: price
+      type: int4!
+    - name: updated_at
+      type: timestamptz!
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: products
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - category_id
+          - country_of_origin
+          - created_at
+          - description
+          - id
+          - image
+          - manufacturer_id
+          - name
+          - price
+          - updated_at
+
+---
+kind: Model
+version: v1
+definition:
+  name: products
+  objectType: products
+  filterableFields:
+    - fieldName: category_id
+      operators:
+        enableAll: true
+    - fieldName: country_of_origin
+      operators:
+        enableAll: true
+    - fieldName: created_at
+      operators:
+        enableAll: true
+    - fieldName: description
+      operators:
+        enableAll: true
+    - fieldName: id
+      operators:
+        enableAll: true
+    - fieldName: image
+      operators:
+        enableAll: true
+    - fieldName: manufacturer_id
+      operators:
+        enableAll: true
+    - fieldName: name
+      operators:
+        enableAll: true
+    - fieldName: price
+      operators:
+        enableAll: true
+    - fieldName: updated_at
+      operators:
+        enableAll: true
+  orderableFields:
+    - fieldName: category_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: country_of_origin
+      orderByDirections:
+        enableAll: true
+    - fieldName: created_at
+      orderByDirections:
+        enableAll: true
+    - fieldName: description
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: image
+      orderByDirections:
+        enableAll: true
+    - fieldName: manufacturer_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: name
+      orderByDirections:
+        enableAll: true
+    - fieldName: price
+      orderByDirections:
+        enableAll: true
+    - fieldName: updated_at
+      orderByDirections:
+        enableAll: true
+  arguments: []
+  graphql:
+    selectUniques:
+      - queryRootField: productsById
+        uniqueIdentifier:
+          - id
+    selectMany:
+      queryRootField: products
+    filterExpressionType: productsBoolExp
+    orderByExpressionType: productsOrderBy
+  source:
+    collection: products
+    dataConnectorName: app
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: products
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: orders
+  source: products
+  target:
+    model:
+      relationshipType: Array
+      name: orders
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: product_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: cart_items
+  source: products
+  target:
+    model:
+      relationshipType: Array
+      name: cart_items
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: product_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: reviews
+  source: products
+  target:
+    model:
+      relationshipType: Array
+      name: reviews
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: id
+      target:
+        modelField:
+          - fieldName: product_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: category
+  source: products
+  target:
+    model:
+      relationshipType: Object
+      name: categories
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: category_id
+      target:
+        modelField:
+          - fieldName: id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: manufacturer
+  source: products
+  target:
+    model:
+      relationshipType: Object
+      name: manufacturers
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: manufacturer_id
+      target:
+        modelField:
+          - fieldName: id
