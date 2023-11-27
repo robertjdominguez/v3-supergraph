@@ -31,6 +31,14 @@ definition:
           - message
           - updated_at
           - user_id
+    - role: user
+      output:
+        allowedFields:
+          - created_at
+          - id
+          - message
+          - updated_at
+          - user_id
 
 ---
 kind: Model
@@ -93,7 +101,14 @@ definition:
     - role: admin
       select:
         filter: null
-
+    - role: user
+      select:
+        filter:
+          fieldComparison:
+            field: user_id
+            operator: _eq
+            value:
+              sessionVariable: x-hasura-user-id
 ---
 kind: Relationship
 version: v1

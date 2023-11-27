@@ -1,6 +1,6 @@
 version: 2
 spec:
-  environment: staging
+  environment: prod
   mode: replace
   supergraph:
     resources:
@@ -9,4 +9,4 @@ spec:
   subgraphs:
     - name: default
       resources:
-        - subgraphs/default/**/*.hml
+        - 'subgraphs/default/**/*.hml'

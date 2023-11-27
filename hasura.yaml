@@ -8,6 +8,8 @@ project: usable-stud-7576
 # We have created one for you to get you started
 buildProfiles:
   - build-profile.yaml
+  - build-profile-staging.yaml
+  - build-profile-prod.yaml
 
 # Default build profile refers to build profile
 # that is used when you create a build and don't specify the build profile
