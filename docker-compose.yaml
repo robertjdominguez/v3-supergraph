@@ -1,0 +1,27 @@
+services:
+  # non-connector services simply omit the x-hasura-* extensions
+  redis:
+    image: 'redis:alpine'
+
+  pet-functions:
+    # Where the tagged version of the connector can be found
+    x-hasura-connector-tag: https://github.com/hasura/ndc-typescript-deno/tree/v0.16
+
+    # The location on docker-hub
+    x-hasura-connector-hub-id: hasura/ndc-typescript-deno@v0.16
+
+    # Connector is named after the service key, or specified with
+    # container_name: foobar
+
+    # A docker image to run the connector
+    image: 'ghcr.io/hasura/ndc-typescript-deno:v0.16'
+
+    # Any volumes that are required resources
+    volumes:
+      - ./functions:/functions
+      # Special resource watched and deployed with `--config`
+      - ./config.json:/config.json
+
+    # Normal compose port-mapping: This is also used for tunnels
+    ports:
+      - 2345:8080
