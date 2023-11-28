@@ -1,0 +1,4 @@
+# ignore vendor and schema.json in the /functions directory
+
+/functions/vendor
+/functions/schema.json

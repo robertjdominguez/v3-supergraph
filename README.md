@@ -6,7 +6,6 @@ Just a sample application using the docs schema. We can build on this to add mor
 
 ![image](https://github.com/robertjdominguez/v3-supergraph/assets/24390149/74f580f1-45c5-4cdd-9cbe-6768e6723a4b)
 
-
 ## Pre-requisites
 
 1. The [Hasura3 CLI](https://hasura.io/docs/3.0/cli/overview/)
@@ -95,3 +94,86 @@ query PaymentQuery {
   }
 }
 ```
+
+## To play with TS Connector
+
+Checkout the `feat/add-ts-function` branch:
+
+```bash
+git checkout feat/add-ts-function
+```
+
+There's a deployed connector configured in the project already. You can try it by running:
+
+```graphql
+query PaymentQuery {
+  users {
+    id
+    email
+    orders {
+      id
+      status
+    }
+    billingUsers {
+      invoices {
+        invoice_id
+        amount
+        status
+        payments {
+          payment_id
+          payment_date
+          amount_paid
+        }
+      }
+    }
+  }
+  isTShirtLover(userId: "82001336-65b7-11ed-b905-7fa26a16d198")
+}
+```
+
+Which will return:
+
+```json
+{
+  // ...other output
+  "isTShirtLover": "User 82001336-65b7-11ed-b905-7fa26a16d198 is a T-Shirt lover!"
+}
+```
+
+You can run the server locally using:
+
+```bash
+deno run -A --watch --check https://deno.land/x/hasura_typescript_connector/mod.ts serve --configuration ./config.json
+```
+
+And test using new tunnel to your local server:
+
+```bash
+hasura3 daemon start
+```
+
+Followed by:
+
+```bash
+hasura3 tunnel create localhost:8100
+```
+
+Replace the local tunnel present with your own in `/subgraphs/default/commands/commands.hml`:
+
+```yaml
+kind: DataConnector
+version: v1
+definition:
+  name: commandconnector
+  url:
+    singleUrl: 'http://<WHATEVER_CONNECTOR_VALUE_IS_HERE>'
+```
+
+Finally, create a new build:
+
+```bash
+hasura3 build create --profile build-profile-staging.yaml -d "Playing with the TS connector"
+```
+
+As you query the connector, you'll see the logs comes through your running Deno server. You can make modifications here
+and they'll be reflected in the API 🎉

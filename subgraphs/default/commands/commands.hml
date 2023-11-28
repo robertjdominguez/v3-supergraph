@@ -1,0 +1,54 @@
+kind: DataConnector
+version: v1
+definition:
+  name: commandconnector
+  url:
+    singleUrl: 'https://connector-012622eb-dc78-4610-b316-20ee0575357d-hyc5v23h6a-ue.a.run.app'
+  schema:
+    scalar_types:
+      String:
+        aggregate_functions: {}
+        comparison_operators: {}
+        update_operators: {}
+    object_types: {}
+    collections: []
+    functions:
+      - name: isTShirtLover
+        description: Retrieves the five most-recent orders for the given user and, if
+          more than one is a t-shirt, categorizes the user as a "t-shirt lover".
+        arguments:
+          userId:
+            description: "- The user ID for which to retrieve orders."
+            type:
+              type: named
+              name: String
+        result_type:
+          type: named
+          name: String
+    procedures: []
+
+---
+kind: Command
+version: v1
+definition:
+  name: isTShirtLover
+  outputType: String!
+  arguments:
+    - name: userId
+      type: String!
+  source:
+    dataConnectorName: commandconnector
+    dataConnectorCommand:
+      function: isTShirtLover
+  graphql:
+    rootFieldKind: Query
+    rootFieldName: isTShirtLover
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: isTShirtLover
+  permissions:
+    - role: admin
+      allowExecution: true
