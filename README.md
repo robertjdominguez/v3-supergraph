@@ -103,13 +103,50 @@ Checkout the `feat/add-ts-function` branch:
 git checkout feat/add-ts-function
 ```
 
-Then, start the local server from the root of the project:
+There's a deployed connector configured in the project already. You can try it by running:
+
+```graphql
+query PaymentQuery {
+  users {
+    id
+    email
+    orders {
+      id
+      status
+    }
+    billingUsers {
+      invoices {
+        invoice_id
+        amount
+        status
+        payments {
+          payment_id
+          payment_date
+          amount_paid
+        }
+      }
+    }
+  }
+  isTShirtLover(userId: "82001336-65b7-11ed-b905-7fa26a16d198")
+}
+```
+
+Which will return:
+
+```json
+{
+  // ...other output
+  "isTShirtLover": "User 82001336-65b7-11ed-b905-7fa26a16d198 is a T-Shirt lover!"
+}
+```
+
+You can run the server locally using:
 
 ```bash
 deno run -A --watch --check https://deno.land/x/hasura_typescript_connector/mod.ts serve --configuration ./config.json
 ```
 
-Create a new tunnel to your local server:
+And test using new tunnel to your local server:
 
 ```bash
 hasura3 daemon start
