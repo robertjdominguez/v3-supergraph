@@ -1,0 +1,130 @@
+{
+  "fixtures": [
+    {
+      "name": "7992fdfa-65b5-11ed-8612-6a8b11ef7372",
+      "path": "/v1/products",
+      "method": "delete",
+      "params": { "id": "7992fdfa-65b5-11ed-8612-6a8b11ef7372", "name": "The Original Tee", "type": "good" }
+    },
+    {
+      "name": "7992fdfa-65b5-11ed-8612-6a8b11ef7372-sku",
+      "path": "/v1/skus",
+      "method": "delete",
+      "params": {
+        "product": "7992fdfa-65b5-11ed-8612-6a8b11ef7372",
+        "id": "7992fdfa-65b5-11ed-8612-6a8b11ef7372-sku",
+        "price": 1000,
+        "currency": "usd",
+        "inventory": { "type": "infinite" }
+      }
+    },
+    {
+      "name": "8aa93f86-65b6-11ed-901c-f320d4e17bb2",
+      "path": "/v1/products",
+      "method": "delete",
+      "params": { "id": "8aa93f86-65b6-11ed-901c-f320d4e17bb2", "name": "Dark Furry Logo Tee", "type": "good" }
+    },
+    {
+      "name": "8aa93f86-65b6-11ed-901c-f320d4e17bb2-sku",
+      "path": "/v1/skus",
+      "method": "delete",
+      "params": {
+        "product": "8aa93f86-65b6-11ed-901c-f320d4e17bb2",
+        "id": "8aa93f86-65b6-11ed-901c-f320d4e17bb2-sku",
+        "price": 1000,
+        "currency": "usd",
+        "inventory": { "type": "infinite" }
+      }
+    },
+    {
+      "name": "a44eda7c-65b6-11ed-997b-53b5bdb7117e",
+      "path": "/v1/products",
+      "method": "delete",
+      "params": { "id": "a44eda7c-65b6-11ed-997b-53b5bdb7117e", "name": "Hasuras in The Cloud Tee", "type": "good" }
+    },
+    {
+      "name": "a44eda7c-65b6-11ed-997b-53b5bdb7117e-sku",
+      "path": "/v1/skus",
+      "method": "delete",
+      "params": {
+        "product": "a44eda7c-65b6-11ed-997b-53b5bdb7117e",
+        "id": "a44eda7c-65b6-11ed-997b-53b5bdb7117e-sku",
+        "price": 1000,
+        "currency": "usd",
+        "inventory": { "type": "infinite" }
+      }
+    },
+    {
+      "name": "cd6be51c-65b6-11ed-a2f4-4b71f0d3d70f",
+      "path": "/v1/products",
+      "method": "delete",
+      "params": { "id": "cd6be51c-65b6-11ed-a2f4-4b71f0d3d70f", "name": "Get Ship Done Mug", "type": "good" }
+    },
+    {
+      "name": "cd6be51c-65b6-11ed-a2f4-4b71f0d3d70f-sku",
+      "path": "/v1/skus",
+      "method": "delete",
+      "params": {
+        "product": "cd6be51c-65b6-11ed-a2f4-4b71f0d3d70f",
+        "id": "cd6be51c-65b6-11ed-a2f4-4b71f0d3d70f-sku",
+        "price": 1600,
+        "currency": "usd",
+        "inventory": { "type": "infinite" }
+      }
+    },
+    {
+      "name": "e0a70b16-65b6-11ed-8788-8fa2504d64a3",
+      "path": "/v1/products",
+      "method": "delete",
+      "params": { "id": "e0a70b16-65b6-11ed-8788-8fa2504d64a3", "name": "Sticker Sheet", "type": "good" }
+    },
+    {
+      "name": "e0a70b16-65b6-11ed-8788-8fa2504d64a3-sku",
+      "path": "/v1/skus",
+      "method": "delete",
+      "params": {
+        "product": "e0a70b16-65b6-11ed-8788-8fa2504d64a3",
+        "id": "e0a70b16-65b6-11ed-8788-8fa2504d64a3-sku",
+        "price": 150,
+        "currency": "usd",
+        "inventory": { "type": "infinite" }
+      }
+    },
+    {
+      "name": "fef9c02c-65b6-11ed-be19-2b4fad811971",
+      "path": "/v1/products",
+      "method": "delete",
+      "params": { "id": "fef9c02c-65b6-11ed-be19-2b4fad811971", "name": "Monogram Baseball Cap", "type": "good" }
+    },
+    {
+      "name": "fef9c02c-65b6-11ed-be19-2b4fad811971-sku",
+      "path": "/v1/skus",
+      "method": "delete",
+      "params": {
+        "product": "fef9c02c-65b6-11ed-be19-2b4fad811971",
+        "id": "fef9c02c-65b6-11ed-be19-2b4fad811971-sku",
+        "price": 1100,
+        "currency": "usd",
+        "inventory": { "type": "infinite" }
+      }
+    },
+    {
+      "name": "3bef8a40-3c33-11ee-bb29-070df467ec94",
+      "path": "/v1/products",
+      "method": "delete",
+      "params": { "id": "3bef8a40-3c33-11ee-bb29-070df467ec94", "name": "Tee", "type": "good" }
+    },
+    {
+      "name": "3bef8a40-3c33-11ee-bb29-070df467ec94-sku",
+      "path": "/v1/skus",
+      "method": "delete",
+      "params": {
+        "product": "3bef8a40-3c33-11ee-bb29-070df467ec94",
+        "id": "3bef8a40-3c33-11ee-bb29-070df467ec94-sku",
+        "price": 1000,
+        "currency": "usd",
+        "inventory": { "type": "infinite" }
+      }
+    }
+  ]
+}

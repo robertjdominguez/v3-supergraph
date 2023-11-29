@@ -1,0 +1,95 @@
+{
+  "_meta": { "template_version": 0 },
+  "fixtures": [
+    {
+      "name": "stripe-sample-test-card-7cf0a66c-65b7-11ed-b904-fb49f034fbbb",
+      "path": "/v1/payment_methods",
+      "method": "post",
+      "params": { "type": "card", "card": { "token": "tok_visa" } }
+    },
+    {
+      "name": "stripe-sample-customer-7cf0a66c-65b7-11ed-b904-fb49f034fbbb",
+      "path": "/v1/customers",
+      "method": "post",
+      "params": {
+        "id": "stripe-sample-customer-7cf0a66c-65b7-11ed-b904-fb49f034fbbb",
+        "name": "Sean",
+        "email": "seandemo@hasura.io",
+        "payment_method": "${stripe-sample-test-card-7cf0a66c-65b7-11ed-b904-fb49f034fbbb:id}",
+        "metadata": { "user_id": "7cf0a66c-65b7-11ed-b904-fb49f034fbbb" }
+      }
+    },
+    {
+      "name": "stripe-sample-test-card-82001336-65b7-11ed-b905-7fa26a16d198",
+      "path": "/v1/payment_methods",
+      "method": "post",
+      "params": { "type": "card", "card": { "token": "tok_visa" } }
+    },
+    {
+      "name": "stripe-sample-customer-82001336-65b7-11ed-b905-7fa26a16d198",
+      "path": "/v1/customers",
+      "method": "post",
+      "params": {
+        "id": "stripe-sample-customer-82001336-65b7-11ed-b905-7fa26a16d198",
+        "name": "Rob",
+        "email": "robdemo@hasura.io",
+        "payment_method": "${stripe-sample-test-card-82001336-65b7-11ed-b905-7fa26a16d198:id}",
+        "metadata": { "user_id": "82001336-65b7-11ed-b905-7fa26a16d198" }
+      }
+    },
+    {
+      "name": "stripe-sample-test-card-86d5fba0-65b7-11ed-b906-afb985970e2e",
+      "path": "/v1/payment_methods",
+      "method": "post",
+      "params": { "type": "card", "card": { "token": "tok_visa" } }
+    },
+    {
+      "name": "stripe-sample-customer-86d5fba0-65b7-11ed-b906-afb985970e2e",
+      "path": "/v1/customers",
+      "method": "post",
+      "params": {
+        "id": "stripe-sample-customer-86d5fba0-65b7-11ed-b906-afb985970e2e",
+        "name": "Marion",
+        "email": "mariondemo@hasura.io",
+        "payment_method": "${stripe-sample-test-card-86d5fba0-65b7-11ed-b906-afb985970e2e:id}",
+        "metadata": { "user_id": "86d5fba0-65b7-11ed-b906-afb985970e2e" }
+      }
+    },
+    {
+      "name": "stripe-sample-test-card-8dea1160-65b7-11ed-b907-e3c5123cb650",
+      "path": "/v1/payment_methods",
+      "method": "post",
+      "params": { "type": "card", "card": { "token": "tok_visa" } }
+    },
+    {
+      "name": "stripe-sample-customer-8dea1160-65b7-11ed-b907-e3c5123cb650",
+      "path": "/v1/customers",
+      "method": "post",
+      "params": {
+        "id": "stripe-sample-customer-8dea1160-65b7-11ed-b907-e3c5123cb650",
+        "name": "Sandeep",
+        "email": "sandeepdemo@hasura.io",
+        "payment_method": "${stripe-sample-test-card-8dea1160-65b7-11ed-b907-e3c5123cb650:id}",
+        "metadata": { "user_id": "8dea1160-65b7-11ed-b907-e3c5123cb650" }
+      }
+    },
+    {
+      "name": "stripe-sample-test-card-9bd9d300-65b7-11ed-b908-571fef22d2ba",
+      "path": "/v1/payment_methods",
+      "method": "post",
+      "params": { "type": "card", "card": { "token": "tok_visa" } }
+    },
+    {
+      "name": "stripe-sample-customer-9bd9d300-65b7-11ed-b908-571fef22d2ba",
+      "path": "/v1/customers",
+      "method": "post",
+      "params": {
+        "id": "stripe-sample-customer-9bd9d300-65b7-11ed-b908-571fef22d2ba",
+        "name": "Abby",
+        "email": "abbydemo@hasura.io",
+        "payment_method": "${stripe-sample-test-card-9bd9d300-65b7-11ed-b908-571fef22d2ba:id}",
+        "metadata": { "user_id": "9bd9d300-65b7-11ed-b908-571fef22d2ba" }
+      }
+    }
+  ]
+}
