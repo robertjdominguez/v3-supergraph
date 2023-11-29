@@ -177,3 +177,7 @@ hasura3 build create --profile build-profile-staging.yaml -d "Playing with the T
 
 As you query the connector, you'll see the logs comes through your running Deno server. You can make modifications here
 and they'll be reflected in the API 🎉
+
+## I WANT TO PLAY WITH STRIPE!
+
+Head to the [README](/stripe-data/README.md) in the `stripe-data` directory.
