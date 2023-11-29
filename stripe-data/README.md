@@ -48,7 +48,17 @@ STRIPE_SECRET_KEY=<YOUR_STRIPE_SECRET_KEY>
 You can find your secret key in the Stripe dashboard. Head to the Developers section and then click on API keys. Copy
 the secret key and paste it into your .env file.
 
-## Run the application
+## Run the connector
 
-You can now follow the instructions in the README.md in the root of this project to run the connector and, if you wish,
-deploy it to Hasura DDN.
+You can now follow the instructions in the README.md in the root of this project to run the connector locally. You'll
+need to add a flag for the `.env` file.
+
+## Deploy the connector
+
+```
+hasura3 connector create stripe-supergraph-connector:v1 \
+  --github-repo-url https://github.com/hasura/ndc-typescript-deno/tree/main \
+  --config-file <(echo '{}') \
+  --volume ./functions:/functions \
+  --env STRIPE_SECRET_KEY=<YOUR_STRIPE_SECRET_KEY>
+```
