@@ -3,7 +3,7 @@ version: v1
 definition:
   name: commandconnector
   url:
-    singleUrl: 'https://connector-012622eb-dc78-4610-b316-20ee0575357d-hyc5v23h6a-ue.a.run.app'
+    singleUrl: "https://connector-669bb666-0e28-4659-bf70-de1143824547-hyc5v23h6a-ue.a.run.app"
   schema:
     scalar_types:
       String:
@@ -13,15 +13,9 @@ definition:
     object_types: {}
     collections: []
     functions:
-      - name: isTShirtLover
-        description: Retrieves the five most-recent orders for the given user and, if
-          more than one is a t-shirt, categorizes the user as a "t-shirt lover".
-        arguments:
-          userId:
-            description: "- The user ID for which to retrieve orders."
-            type:
-              type: named
-              name: String
+      - name: helloWorld
+        description: Tells you Hello World!
+        arguments: {}
         result_type:
           type: named
           name: String
@@ -31,24 +25,22 @@ definition:
 kind: Command
 version: v1
 definition:
-  name: isTShirtLover
+  name: helloWorld
   outputType: String!
-  arguments:
-    - name: userId
-      type: String!
+  arguments: []
   source:
     dataConnectorName: commandconnector
     dataConnectorCommand:
-      function: isTShirtLover
+      function: helloWorld
   graphql:
     rootFieldKind: Query
-    rootFieldName: isTShirtLover
+    rootFieldName: helloWorld
 
 ---
 kind: CommandPermissions
 version: v1
 definition:
-  commandName: isTShirtLover
+  commandName: helloWorld
   permissions:
     - role: admin
       allowExecution: true

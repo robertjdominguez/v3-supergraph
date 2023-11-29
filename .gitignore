@@ -2,3 +2,5 @@
 
 /functions/vendor
 /functions/schema.json
+.env
+**/node_modules

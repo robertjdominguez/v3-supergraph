@@ -19,8 +19,11 @@ services:
     # Any volumes that are required resources
     volumes:
       - ./functions:/functions
+      - ./node_modules:/node_modules
       # Special resource watched and deployed with `--config`
       - ./config.json:/config.json
+    env_file:
+      - ./.env
 
     # Normal compose port-mapping: This is also used for tunnels
     ports:

@@ -13,3 +13,6 @@ spec:
     - name: billing
       resources:
         - subgraphs/billing/**/*.hml
+    - name: stripe
+      resources:
+        - subgraphs/stripe/**/*.hml
