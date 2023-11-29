@@ -26,7 +26,7 @@ a passphrase and then you're golden.
 After logging in, from the root of this project, run:
 
 ```bash
-stripe fixtures stripe-data/payments/create-fixtures.json
+stripe fixtures stripe-data/products/create-fixtures.json
 ```
 
 ## Create your customers
