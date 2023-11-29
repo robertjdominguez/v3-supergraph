@@ -7,7 +7,7 @@ definition:
     # singleUrl: "http://us-east4-a-001.secure-connect.cloud.internal:2000" # deno watch
     # singleUrl: "http://us-east4-a-001.secure-connect.cloud.internal:2007" # docker-compose
     # singleUrl: "https://connector-60a38fcf-276a-4ad5-8199-8526cb0b0db5-hyc5v23h6a-ue.a.run.app" # DDN on testing
-    singleUrl: "https://connector-900bdbd6-c6a2-443c-84c9-cd17877f7398-hyc5v23h6a-ue.a.run.app" # DDN on supergraph demo
+    singleUrl: "https://connector-85443186-4019-4ffe-a01f-eee0f4d88b00-hyc5v23h6a-ue.a.run.app" # DDN on supergraph demo
   schema:
     scalar_types:
       getUserInfo_output:

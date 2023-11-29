@@ -41,6 +41,9 @@ export async function getUserInfo(userId: string) {
  * @pure This function should only query data without making modifications
  */
 export async function getCheckoutSessionUrl(userId: string, priceId: string) {
+  // Let's get the customer's stripe id
+  const customer = await getUserInfo(userId);
+
   try {
     const line_items = [
       {
@@ -54,6 +57,7 @@ export async function getCheckoutSessionUrl(userId: string, priceId: string) {
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',
+      customer: customer.id,
       metadata: {
         userId: userId,
       },
